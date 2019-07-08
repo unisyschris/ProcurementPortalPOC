@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+- 10.16.0
+cache: npm
+
+before_install:
+install:
+ - npm ci
+before_script:
+script:
+ - npm run build.
+
+Deploy:
+ provider: pages
+ skip-cleanup: true
+ github-token: $  
+ local_dir: build
+ on:
+  branch: master
