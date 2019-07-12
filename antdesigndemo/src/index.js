@@ -1,10 +1,11 @@
-import "core-js/stable";
-import "regenerator-runtime/runtime";
-// import "@babel/polyfill";
+
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './index.css';
+// import './styles/index.less';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
