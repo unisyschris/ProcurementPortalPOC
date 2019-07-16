@@ -1,7 +1,7 @@
 import React from 'react';
-import { Table, Input, Button, Icon, Tag } from 'antd';
-// import Highlighter from 'react-highlight-words';
-import DeleteModal from '../components/DeleteModal'
+import { Table, Input, Button, Icon, Tag, Tabs } from 'antd';
+import DeleteModal from './DeleteModal';
+const { TabPane } = Tabs;
 const data = [
     {
         key: '1',
@@ -9,9 +9,9 @@ const data = [
         age: 32,
         address: 'New York No. 1 Lake Park',
         description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:6
+        type: 'YES',
+        method: 'NCB',
+        value: 6
     },
     {
         key: '2',
@@ -19,9 +19,9 @@ const data = [
         age: 42,
         address: 'London No. 1 Lake Park',
         description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:1
+        type: 'YES',
+        method: 'NCB',
+        value: 1
     },
     {
         key: '3',
@@ -29,9 +29,9 @@ const data = [
         age: 32,
         address: 'Sidney No. 1 Lake Park',
         description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:3
+        type: 'YES',
+        method: 'NCB',
+        value: 3
     },
     {
         key: '4',
@@ -39,9 +39,9 @@ const data = [
         age: 32,
         address: 'London No. 2 Lake Park',
         description: 'My name is Jim Red, I am 32 years old, living in Sidney No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:4
+        type: 'YES',
+        method: 'NCB',
+        value: 4
     },
     {
         key: '5',
@@ -49,9 +49,9 @@ const data = [
         age: 12,
         address: 'New York No. 1 Lake Park',
         description: 'My name is John Brown, I am 12 years old, living in New York No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:2
+        type: 'YES',
+        method: 'NCB',
+        value: 2
     },
     {
         key: '6',
@@ -59,9 +59,9 @@ const data = [
         age: 32,
         address: 'London No. 1 Lake Park',
         description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:7
+        type: 'YES',
+        method: 'NCB',
+        value: 7
     },
     {
         key: '7',
@@ -69,9 +69,9 @@ const data = [
         age: 43,
         address: 'Sidney No. 1 Lake Park',
         description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:1
+        type: 'YES',
+        method: 'NCB',
+        value: 1
     },
     {
         key: '8',
@@ -79,9 +79,9 @@ const data = [
         age: 56,
         address: 'London No. 2 Lake Park',
         description: 'My name is Jim Red, I am 32 years old, living in Sidney No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:5
+        type: 'YES',
+        method: 'NCB',
+        value: 5
     },
     {
         key: '9',
@@ -89,9 +89,9 @@ const data = [
         age: 43,
         address: 'Sidney No. 1 Lake Park',
         description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:3
+        type: 'YES',
+        method: 'NCB',
+        value: 3
     },
     {
         key: '10',
@@ -99,13 +99,13 @@ const data = [
         age: 56,
         address: 'London No. 2 Lake Park',
         description: 'My name is Jim Red, I am 32 years old, living in Sidney No. 1 Lake Park.',
-        type:'NO',
-        method:'NCB',
-        value:2
+        type: 'NO',
+        method: 'NCB',
+        value: 2
     },
 ];
 
-class TableList extends React.Component {
+class ActivityList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -114,6 +114,9 @@ class TableList extends React.Component {
             loading: false,
             visible: false,
         };
+    }
+    callback = (key) => {
+        console.log(key);
     }
     handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
@@ -187,20 +190,20 @@ class TableList extends React.Component {
     }
     showModal = () => {
         this.setState({
-          visible: true,
+            visible: true,
         });
-      };
-    
-      handleOk = () => {
+    };
+
+    handleOk = () => {
         this.setState({ loading: true });
         setTimeout(() => {
-          this.setState({ loading: false, visible: false });
+            this.setState({ loading: false, visible: false });
         }, 3000);
-      };
-    
-      handleCancel = () => {
+    };
+
+    handleCancel = () => {
         this.setState({ visible: false });
-      };
+    };
     render() {
         let { sortedInfo } = this.state;
         sortedInfo = sortedInfo || {};
@@ -280,10 +283,36 @@ class TableList extends React.Component {
         ];
         // onChange:this.onChange  showQuickJumper:true,
         return (
-            <div>
-                <Table bordered pagination={{ pageSize:12 }} columns={columns} size="middle"
-                    expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}
-                    dataSource={data} onChange={this.handleChange} />
+            <div style={{ paddingBottom: '30px' }}>
+                {/* <h3>
+                    Activity List
+                </h3> */}
+                <Tabs defaultActiveKey="1" onChange={this.callback}>
+                    <TabPane tab="Works" key="1">
+                        <Table pagination={{ pageSize: 8  }} columns={columns} size="middle"
+                            // expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}
+                            dataSource={data.slice(0,4)} onChange={this.handleChange} />
+                    </TabPane>
+                    <TabPane tab="Goods" key="2">
+                        <Table pagination={{ pageSize: 8 }} columns={columns} size="middle"
+                            dataSource={data.slice(3,9)} onChange={this.handleChange} />
+                    </TabPane>
+                    <TabPane tab="Non Consulting Services" key="3">
+                        <Table pagination={{ pageSize: 8 }} columns={columns} size="middle"
+                            dataSource={data} onChange={this.handleChange} />
+                    </TabPane>
+                    <TabPane tab="Consulting Firms" key="4">
+                        <Table pagination={{ pageSize: 8 }} columns={columns} size="middle"
+                            dataSource={data.slice(2,7)} onChange={this.handleChange} />
+                    </TabPane>
+                    <TabPane tab="Individual Consultants" key="5">
+                        <Table pagination={{ pageSize: 8 }} columns={columns} size="middle"
+                            dataSource={data.slice(7,9)} onChange={this.handleChange} />
+                    </TabPane>
+                </Tabs>
+                {/* <Table pagination={{ pageSize: 8, hideOnSinglePage: true }} columns={columns} size="middle"
+                    // expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}
+                    dataSource={data} onChange={this.handleChange} /> */}
                 <div>
                     <DeleteModal handleCancel={this.handleCancel} handleOk={this.handleOk} showModal={this.showModal} loading={this.state.loading} visible={this.state.visible}></DeleteModal>
                 </div>
@@ -293,4 +322,4 @@ class TableList extends React.Component {
     }
 }
 
-export default TableList
+export default ActivityList
