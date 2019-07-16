@@ -7,5 +7,5 @@ export function  setHtmlFontSize(){
 
 export function resetHtmlFontSize(){
     var html = document.documentElement;
-    html.style.fontSize = 'inherit';
+    html.style.fontSize = "inherit";
 }

@@ -9,9 +9,6 @@ const data = [
         age: 32,
         address: 'New York No. 1 Lake Park',
         description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:6
     },
     {
         key: '2',
@@ -19,9 +16,6 @@ const data = [
         age: 42,
         address: 'London No. 1 Lake Park',
         description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:1
     },
     {
         key: '3',
@@ -29,9 +23,6 @@ const data = [
         age: 32,
         address: 'Sidney No. 1 Lake Park',
         description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:3
     },
     {
         key: '4',
@@ -39,9 +30,6 @@ const data = [
         age: 32,
         address: 'London No. 2 Lake Park',
         description: 'My name is Jim Red, I am 32 years old, living in Sidney No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:4
     },
     {
         key: '5',
@@ -49,9 +37,6 @@ const data = [
         age: 12,
         address: 'New York No. 1 Lake Park',
         description: 'My name is John Brown, I am 12 years old, living in New York No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:2
     },
     {
         key: '6',
@@ -59,9 +44,6 @@ const data = [
         age: 32,
         address: 'London No. 1 Lake Park',
         description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:7
     },
     {
         key: '7',
@@ -69,9 +51,6 @@ const data = [
         age: 43,
         address: 'Sidney No. 1 Lake Park',
         description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:1
     },
     {
         key: '8',
@@ -79,29 +58,6 @@ const data = [
         age: 56,
         address: 'London No. 2 Lake Park',
         description: 'My name is Jim Red, I am 32 years old, living in Sidney No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:5
-    },
-    {
-        key: '9',
-        name: 'Green',
-        age: 43,
-        address: 'Sidney No. 1 Lake Park',
-        description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-        type:'YES',
-        method:'NCB',
-        value:3
-    },
-    {
-        key: '10',
-        name: 'Jim Red',
-        age: 56,
-        address: 'London No. 2 Lake Park',
-        description: 'My name is Jim Red, I am 32 years old, living in Sidney No. 1 Lake Park.',
-        type:'NO',
-        method:'NCB',
-        value:2
     },
 ];
 
@@ -206,67 +162,30 @@ class TableList extends React.Component {
         sortedInfo = sortedInfo || {};
         const columns = [
             {
-                title: 'PackageNo',
+                title: 'Name',
                 dataIndex: 'name',
                 key: 'name',
-                width: '8%',
+                width: '30%',
                 ...this.getColumnSearchProps('name'),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
             },
             {
-                title: 'General Description',
-                dataIndex: 'description',
-                key: 'description',
-                width: '34%',
-                ...this.getColumnSearchProps('description'),
-                sorter: (a, b) => a.age - b.age,
-                sortOrder: sortedInfo.columnKey === 'description' && sortedInfo.order,
-            },
-            {
-                title: 'Unit',
-                dataIndex: 'address',
-                key: 'address',
-                width: '16%',
-                ...this.getColumnSearchProps('address'),
-                sorter: (a, b) => a.address.length - b.address.length,
-                sortOrder: sortedInfo.columnKey === 'address' && sortedInfo.order,
-            },
-            {
-                title: 'Quantity',
+                title: 'Age',
                 dataIndex: 'age',
                 key: 'age',
-                width: '6%',
+                width: '20%',
                 ...this.getColumnSearchProps('age'),
                 sorter: (a, b) => a.age - b.age,
                 sortOrder: sortedInfo.columnKey === 'age' && sortedInfo.order,
             },
             {
-                title: 'Review Type',
-                dataIndex: 'type',
-                key: 'type',
-                width: '10%',
-                ...this.getColumnSearchProps('name'),
-                sorter: (a, b) => a.name.length - b.name.length,
-                sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
-            },
-            {
-                title: 'Method',
-                dataIndex: 'method',
-                key: 'method',
-                width: '6%',
-                ...this.getColumnSearchProps('name'),
-                sorter: (a, b) => a.name.length - b.name.length,
-                sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
-            },
-            {
-                title: 'Estimated Value',
-                dataIndex: 'value',
-                key: 'value',
-                width: '10%',
-                ...this.getColumnSearchProps('name'),
-                sorter: (a, b) => a.name.length - b.name.length,
-                sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
+                title: 'Address',
+                dataIndex: 'address',
+                key: 'address',
+                ...this.getColumnSearchProps('address'),
+                sorter: (a, b) => a.address.length - b.address.length,
+                sortOrder: sortedInfo.columnKey === 'address' && sortedInfo.order,
             },
             {
                 title: 'Action',
@@ -274,14 +193,14 @@ class TableList extends React.Component {
                 key: 'x',
                 render: (text, record) =>
                     // <Tag onClick={()=>this.deleteRecord(record)}  color="red">Delete</Tag>
-                    <Button type="link" onClick={this.showModal} size="small" theme="filled" >Detail</Button>
+                    <Button type="link" onClick={this.showModal} size="small" theme="filled" >Delete</Button>
 
             },
         ];
         // onChange:this.onChange  showQuickJumper:true,
         return (
             <div>
-                <Table bordered pagination={{ pageSize:12 }} columns={columns} size="middle"
+                <Table pagination={{ pageSize: 5, hideOnSinglePage: true }} columns={columns} size="middle"
                     expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}
                     dataSource={data} onChange={this.handleChange} />
                 <div>
