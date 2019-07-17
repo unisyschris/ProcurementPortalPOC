@@ -209,7 +209,7 @@ class TableList extends React.Component {
                 title: 'PackageNo',
                 dataIndex: 'name',
                 key: 'name',
-                width: '8%',
+               
                 ...this.getColumnSearchProps('name'),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
@@ -218,7 +218,6 @@ class TableList extends React.Component {
                 title: 'General Description',
                 dataIndex: 'description',
                 key: 'description',
-                width: '34%',
                 ...this.getColumnSearchProps('description'),
                 sorter: (a, b) => a.age - b.age,
                 sortOrder: sortedInfo.columnKey === 'description' && sortedInfo.order,
@@ -227,7 +226,7 @@ class TableList extends React.Component {
                 title: 'Unit',
                 dataIndex: 'address',
                 key: 'address',
-                width: '16%',
+              
                 ...this.getColumnSearchProps('address'),
                 sorter: (a, b) => a.address.length - b.address.length,
                 sortOrder: sortedInfo.columnKey === 'address' && sortedInfo.order,
@@ -236,7 +235,7 @@ class TableList extends React.Component {
                 title: 'Quantity',
                 dataIndex: 'age',
                 key: 'age',
-                width: '6%',
+               
                 ...this.getColumnSearchProps('age'),
                 sorter: (a, b) => a.age - b.age,
                 sortOrder: sortedInfo.columnKey === 'age' && sortedInfo.order,
@@ -245,7 +244,7 @@ class TableList extends React.Component {
                 title: 'Review Type',
                 dataIndex: 'type',
                 key: 'type',
-                width: '10%',
+              
                 ...this.getColumnSearchProps('name'),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
@@ -254,7 +253,7 @@ class TableList extends React.Component {
                 title: 'Method',
                 dataIndex: 'method',
                 key: 'method',
-                width: '6%',
+                
                 ...this.getColumnSearchProps('name'),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
@@ -263,25 +262,25 @@ class TableList extends React.Component {
                 title: 'Estimated Value',
                 dataIndex: 'value',
                 key: 'value',
-                width: '10%',
+                
                 ...this.getColumnSearchProps('name'),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
             },
-            {
-                title: 'Action',
-                dataIndex: '',
-                key: 'x',
-                render: (text, record) =>
-                    // <Tag onClick={()=>this.deleteRecord(record)}  color="red">Delete</Tag>
-                    <Button type="link" onClick={this.showModal} size="small" theme="filled" >Detail</Button>
+            // {
+            //     title: 'Action',
+            //     dataIndex: '',
+            //     key: 'x',
+            //     render: (text, record) =>
+            //         // <Tag onClick={()=>this.deleteRecord(record)}  color="red">Delete</Tag>
+            //         <Button type="link" onClick={this.showModal} size="small" theme="filled" >Detail</Button>
 
-            },
+            // },
         ];
         // onChange:this.onChange  showQuickJumper:true,
         return (
             <div>
-                <Table bordered pagination={{ pageSize:12 }} columns={columns} size="middle"
+                <Table  scroll={{ x: 1800 }} size='small' bordered pagination={{ pageSize:8 }} columns={columns} 
                     expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}
                     dataSource={data} onChange={this.handleChange} />
                 <div>

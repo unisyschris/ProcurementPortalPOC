@@ -46,6 +46,7 @@ class NormalLoginForm extends React.Component {
               setfieldsvalue={username}
               name="username"
               autoComplete="off"
+              size="large"
               onChange={this.FromChange}
             />,
           )}
@@ -60,6 +61,7 @@ class NormalLoginForm extends React.Component {
               placeholder="Password"
               setfieldsvalue={password}
               name="password"
+              size="large"
               onChange={this.FromChange}
             />,
           )}
@@ -72,7 +74,7 @@ class NormalLoginForm extends React.Component {
           {/* <a className="login-form-forgot" href="">
             Forgot password
           </a> */}
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button   size="large" type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
           {/* Or <a href="">register now!</a> */}

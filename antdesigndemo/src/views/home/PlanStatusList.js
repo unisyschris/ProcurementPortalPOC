@@ -6,7 +6,7 @@ class PlanStatusList extends Component {
         this.state = {  }
     }
     render() { 
-        return ( <div style={{height:'auto',backgroundColor:'#fff',padding:'30px 20px 60px'}}>
+        return ( <div style={{height:'auto',backgroundColor:'#fff',padding:'10px 16px 50px'}}>
            <h2>PlanStatusList</h2>
             <TableList></TableList>
         </div> );
