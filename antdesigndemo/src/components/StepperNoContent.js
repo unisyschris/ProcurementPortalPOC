@@ -9,11 +9,11 @@ const steps = [
     content: 'PP and PDS',
     index:0,
     icon:'user',
+    status:'success',
     content : (
       <div>
         <p>PP&nbsp;<Icon type='check' /></p>
         <div>PDS&nbsp;<Icon type='check' /></div>
-        
       </div>
     )
   },
@@ -22,6 +22,7 @@ const steps = [
     content: 'Review',
     index:1,
     icon:'file',
+    status:'success',
     content : (
       <div>
         <div>Review&nbsp;<Icon type='check' /></div>
@@ -33,6 +34,7 @@ const steps = [
     content: 'Create-activity',
     index:2,
     icon:'idcard',
+    status:'unComplete',
     content : (
       <div>
         <div>Create-activity&nbsp;<Icon type='close' /></div>
@@ -44,6 +46,7 @@ const steps = [
     content: 'Review',
     index:3,
     icon:'notification',
+    status:'unComplete',
     content : (
       <div>
         <div>Review&nbsp;<Icon type='close' /></div>
@@ -60,52 +63,15 @@ class StepperNoContent extends Component {
           icon:<Icon type="loading" />
         };
       }
-    
-      next() {
-        const current = this.state.current + 1;
-        if(current===2){
-            this.setState({ current,icon:''},()=>{
-          
-            });
-        }
-        this.setState({ current},()=>{
-          
-        });
-
-      }
-    
-      prev() {
-        const current = this.state.current - 1;
-        this.setState({ current });
-      }
     render() { 
-        const { current ,icon} = this.state;
+        const {current} = this.state;
         return ( <div>
-          
             <Steps current={current} status="process">
               {steps.map((item,key)=> (
-                  <Step key={item.title+key} icon={<Popover content={item.content} ><Icon type={item.icon} /> </Popover>}  title={item.title} />
+                // <Icon type={item.icon} /> 
+                  <Step  key={item.title+key} icon={<Popover content={item.content} ><Icon style={{color:item.status==='success'?'#1890ff':''}} type='info-circle' /> </Popover>}  title={item.title} />
               ))}
             </Steps>
-           
-            {/* <div className="steps-content">{steps[current].content}</div> */}
-            {/* <div className="steps-action">
-              {current < steps.length - 1 && (
-                <Button type="primary" onClick={() => this.next()}>
-                  Next
-                </Button>
-              )}
-              {current === steps.length - 1 && (
-                <Button type="primary" onClick={() => message.success('Processing complete!')}>
-                  Done
-                </Button>
-              )}
-              {current > 0 && (
-                <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
-                  Previous
-                </Button>
-              )}
-            </div> */}
           </div> );
     }
 }

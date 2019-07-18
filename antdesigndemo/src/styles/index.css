@@ -22,11 +22,16 @@
   .ant-layout .trigger:hover {
     color: #1890ff;
   }
-  .ant-layout .logo {
-    height: 32px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 16px;
+ body #components-layout-demo-fixed .logo{
+    background: #000;
+    margin: 0 0.4rem 0 1.8rem;
+    height: 48px;
   }
+  /* .ant-layout .logo {
+    height: 48px;
+    background: #000;
+    margin: 0 16px 0 30px;
+  } */
   .steps-content {
     margin-top: 16px;
     border: 1px dashed #e9e9e9;
@@ -98,7 +103,6 @@
     display: inline-block;
     margin-right: 1rem;
   }
-
   /* theme */
   .theme-color-content .theme-color-block{
     float: left;
@@ -114,8 +118,6 @@
   .ant-layout-footer{
     padding: 16px 50px;
   }
-  
-  
   .ant-row .ant-col:nth-child(2) .ant-card{
     background-color:#ff4d4f;
     border-color: #f5222d;

@@ -5,24 +5,17 @@ class PPForm extends Component {
         super(props);
         this.state = {
             ppObj: {
+                // title:'',
+                // description:'',
+                // owner: ''
                 title: props.ppObj.title||'',
                 description: props.ppObj.description||'',
-                owner: props.ppObj.description||''
+                owner: props.ppObj.owner||''
             }
         }
         console.log(props)
     }
-    static getDerivedStateFromProps(nextProps, prevState) {
-        console.log(nextProps, prevState)
-        // if (nextProps.ppObj.title !== prevState.ppObj.title) {
-        //   console.log(nextProps, prevState)
-        //   return {
-        //     ppObj: nextProps.location.state,
-        //   };
-         
-        // }
-        return null;
-      }
+   
     handleSubmitPP = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -31,29 +24,39 @@ class PPForm extends Component {
             }
         });
     };
-  
+    cancelEdit=()=>{
+        let {ppObj} = this.props
+        this.props.form.setFieldsValue({
+            title:ppObj.title,
+            description:ppObj.description,
+            owner:ppObj.owner
+        })
+    }
+    onFieldsChange=(e)=>{
+console.log(e)
+    }
     render() {
-        let { ppObj } = this.state
+        let { title,description,owner } = this.props.ppObj
         const { getFieldDecorator } = this.props.form;
         let { action } = this.props
-        console.log(action)
+        console.log(this.props)
         return (<div>
             <Form labelCol={{ span: 5 }} wrapperCol={{ span: 12 }} onSubmit={this.handleSubmitPP}>
-                <Form.Item label="Tilte" >
-                    {getFieldDecorator('tltle', {
-                        initialValue: ppObj.title || '',
+                <Form.Item label="Tilte">
+                    {getFieldDecorator('title', {
+                        initialValue: title,
                         rules: [{ required: true, message: 'Please input your title!' }],
                     })(<Input autoComplete="off" />)}
                 </Form.Item>
                 <Form.Item label="Description">
                     {getFieldDecorator('description', {
-                        initialValue: ppObj.description || '',
+                        initialValue: description,
                         rules: [{ required: true, message: 'Please input your description!' }],
                     })(<Input autoComplete="off" />)}
                 </Form.Item>
                 <Form.Item label="Owner">
                     {getFieldDecorator('owner', {
-                        initialValue: ppObj.owner || '',
+                        initialValue: owner,
                         rules: [{ required: true, message: 'Please input your owner!' }],
                     })(<Input autoComplete="off" />)}
                 </Form.Item>
@@ -62,7 +65,13 @@ class PPForm extends Component {
                     <Button type="primary" htmlType="submit" >
                         {action==='create' ? 'Create' : action==='edit'?'Save':'View'}
                     </Button>
+                    {action==='edit' &&
+                    <Button type="primary" style={{marginLeft:'1rem'}} onClick={this.cancelEdit}>
+                      Cancel
+                    </Button>
+               }
                 </Form.Item>
+                
 
             </Form>
         </div>);

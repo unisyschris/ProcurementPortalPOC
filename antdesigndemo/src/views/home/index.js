@@ -42,25 +42,28 @@ const Bread = withRouter(props => {
 class HomePage extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    console.log(props.location.pathname)
+    let key = props.location.pathname
+    this.state = {
+      selectKey:key.includes('complaints')? '3':key.includes('management')?'2':'1'
+    }
   }
   render() {
+    let {selectKey} = this.state
     return (<div id="components-layout-demo-fixed">
       <Layout>
         <Header>
-          {/* <div className="logo" style={{ fontSize:'18px'}}>Demo</div> */}
+          {/* style={{fontSize:'30px',fontWeight:'600',color:'#fff',display:'inline-block',width:'3px'}} */}
+          <span  className="logo" style={{fontSize:'30px',fontWeight:'600',color:'#fff',display:'inline-block',lineHeight:'48px'}}>Demo</span>
           <Menu
             theme="dark"
             mode="horizontal"
-            defaultSelectedKeys={['1']}
+            defaultSelectedKeys={[selectKey]}
           >
-            <Menu.Item key="d" disabled={true} style={{ cursor: 'default' }}><div style={{fontSize:'30px',fontWeight:'600',color:'#fff'}}>Demo</div>
-              {/* <img src={`${process.env.PUBLIC_URL}/images/unisys_small.png`} alt="d"></img> */}
-            </Menu.Item>
             <Menu.Item key="1" ><Link to={`${process.env.PUBLIC_URL}/home`}>Procurement plan</Link></Menu.Item>
-            <Menu.Item key="3"><Link to={`${process.env.PUBLIC_URL}/management`}>Contract Management</Link></Menu.Item>
-            <Menu.Item key="4"><Link to={`${process.env.PUBLIC_URL}/complaints`}>Complaints Monitoring</Link></Menu.Item>
-            <Menu.Item key="5" style={{ float: 'right' }}><Link to={`${process.env.PUBLIC_URL}/login`}>Logout</Link></Menu.Item>
+            <Menu.Item key="2"><Link to={`${process.env.PUBLIC_URL}/management`}>Contract Management</Link></Menu.Item>
+            <Menu.Item key="3"><Link to={`${process.env.PUBLIC_URL}/complaints`}>Complaints Monitoring</Link></Menu.Item>
+            <Menu.Item key="4" style={{ float: 'right' }}><Link to={`${process.env.PUBLIC_URL}/login`}>Logout</Link></Menu.Item>
           </Menu>
         </Header>
         <Content className="h-content">
@@ -75,7 +78,7 @@ class HomePage extends Component {
             <Route path={`${process.env.PUBLIC_URL}/management`} component={Management}></Route>
             <Route path={`${process.env.PUBLIC_URL}/complaints`} component={Complaints}></Route>
             <Redirect exact path={`${process.env.PUBLIC_URL}/`} to={`${process.env.PUBLIC_URL}/home`} ></Redirect>
-            <Route component={Nofound}></Route>
+            {/* <Route component={Nofound}></Route> */}
           </Switch>
         </Content>
         <Footer style={{ textAlign: 'center', position: 'fixed', bottom: '0', width: '100vw' }}>Ant Design Demo ©2019 Created by Xiaohui</Footer>

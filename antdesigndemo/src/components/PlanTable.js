@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Button, Icon, message } from 'antd';
-import { history } from '../utils/history'
+import { history } from '../utils/history';
 
 const ButtonGroup = Button.Group;
 const data = [
@@ -109,7 +109,7 @@ class PlanTable extends Component {
         return (<div>
             <div>
                 <span style={{ fontSize:'0.9rem',fontWeight:'500',color:'#000' }}>Procurement Plan List</span>
-                    <ButtonGroup style={{ margin:'0 2rem 6px' }}>
+                    <ButtonGroup style={{ margin:'0 2rem 6px',float:'right' }}>
                     <Button type="primary" onClick={this.toList.bind(this, 'approve')}>
                         <Icon type="eye" />
                         View
@@ -118,6 +118,10 @@ class PlanTable extends Component {
                         Edit
                                 <Icon type="edit" />
                     </Button>
+                    {/* <Button type="primary" onClick={this.toList.bind(this, 'delete')}>
+                        Delete
+                            <Icon type="delete" />
+                    </Button> */}
                     <Button type="primary" onClick={this.toList.bind(this, 'create')}>
                         Create
                             <Icon type="plus" />

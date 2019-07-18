@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table, Input, Button, Icon, Tabs } from 'antd';
-import DeleteModal from '../../../../components/DeleteModal';
+import { Table, Input, Button, Icon, Tabs, message } from 'antd';
+import DeleteModal from '../../../../components/modals/DeleteModal';
 import ActivityModule from './ActivityModule'
 const { TabPane } = Tabs;
 
@@ -118,15 +118,17 @@ class ActivityList extends React.Component {
             loading: false,
             visible: false,
             isShowActions: false,
-            recordObj:{},
-            action:'create'
+            recordObj: {},
+            action: 'create'
         };
     }
     callback = (key) => {
-        console.log(key);
+        this.setState({
+            recordObj:{}
+        })
     }
     handleChange = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter);
+        // console.log('Various parameters', pagination, filters, sorter);
         this.setState({
             sortedInfo: sorter,
         });
@@ -187,14 +189,31 @@ class ActivityList extends React.Component {
     onChange = (pageNumber) => {
         console.log('Page: ', pageNumber);
     }
-    showModal = (action,e) => {
-        console.log(action,e)
-        this.setState({
-            visible: true,
-            action:action
-        });
-    };
+    showModal = (action, e) => {
+        let { recordObj } = this.state
+        console.log(recordObj, action)
+        if (!recordObj.packageNo) {
+            console.log(1)
+            if (action !== 'create') {
+                console.log(2)
+                message.warning('Please select one line first')
+            } else {
+                console.log(3)
+                this.setState({
+                    visible: true,
+                    action: action
+                });
+               
+            }
+        }else{
+            console.log(4)
+            this.setState({
+                visible: true,
+                action: action
+            });
+        }
 
+    };
     handleOk = () => {
         this.setState({ loading: true });
         setTimeout(() => {
@@ -209,12 +228,12 @@ class ActivityList extends React.Component {
         console.log(record)
         // let isShowActions =this.state.isShowActions
         this.setState({
-            isShowActions:true,
-              recordObj:record
+            isShowActions: true,
+            recordObj: record
         })
     }
     render() {
-        let { sortedInfo, isShowActions,recordObj,action } = this.state;
+        let { sortedInfo, isShowActions, recordObj, action } = this.state;
         sortedInfo = sortedInfo || {};
         // const rowSelection = {
         //     onChange: (selectedRowKeys, selectedRows) => {
@@ -234,7 +253,7 @@ class ActivityList extends React.Component {
                 title: 'PackageNo',
                 dataIndex: 'packageNo',
                 key: 'packageNo',
-                render: (text,row) => <a href="javascript:;" onClick={()=>this.showAction(row)}>{text}</a>,
+                render: (text, row) => <a href="javascript:;" onClick={() => this.showAction(row)}>{text}</a>,
                 ...this.getColumnSearchProps('name'),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === 'packageNo' && sortedInfo.order
@@ -297,54 +316,58 @@ class ActivityList extends React.Component {
         return (
             <div style={{ paddingBottom: '30px' }}>
                 <span >
-                    {isShowActions ?
-                        <ButtonGroup>
-                            <Button type="primary" onClick={this.showModal.bind(this,'approve')}>
-                                <Icon type="eye" />
-                                View
+                    {/* {isShowActions ? */}
+                    <ButtonGroup>
+                        <Button type="primary" onClick={this.showModal.bind(this, 'approve')}>
+                            <Icon type="eye" />
+                            View
                             </Button>
-                            <Button type="primary" onClick={this.showModal.bind(this,'edit')}>
-                                Edit
+                        <Button type="primary" onClick={this.showModal.bind(this, 'edit')}>
+                            Edit
                                 <Icon type="edit" />
-                            </Button>
-                            <Button type="primary" onClick={this.showModal.bind(this,'create')}>
-                               Create
-                            <Icon type="plus" />
-                            </Button>
-                        </ButtonGroup> :
-                        <Button type="primary" onClick={this.showModal.bind(this,'create')}>
-                            Add
+                        </Button>
+                        <Button type="primary" onClick={this.showModal.bind(this, 'delelte')}>
+                            Delete
+                                <Icon type="delete" />
+                        </Button>
+                        <Button type="primary" onClick={this.showModal.bind(this, 'create')}>
+                            Create
                             <Icon type="plus" />
                         </Button>
-                    }
+                    </ButtonGroup>
+                    {/*  :<Button type="primary" onClick={this.showModal.bind(this,'create')}>
+                             Create
+                            <Icon type="plus" />
+                        </Button>
+                    } */}
                 </span>
                 <Tabs defaultActiveKey="1" onChange={this.callback}>
                     <TabPane tab="Works" key="1">
                         {/* rowSelection={rowSelection} */}
-                        <Table bordered  scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
-                        //  onRow={(record, index) => {
-                        //     return {
-                        //         onClick: event =>{this.showAction(record)} // click row
-                        //       };
-                        //  }}
+                        <Table bordered scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
+                            //  onRow={(record, index) => {
+                            //     return {
+                            //         onClick: event =>{this.showAction(record)} // click row
+                            //       };
+                            //  }}
                             dataSource={data.slice(0, 4)} onChange={this.handleChange} />
                     </TabPane>
                     <TabPane tab="Goods" key="2">
-                        <Table   scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
+                        <Table scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
                             bordered={false}
                             dataSource={data.slice(3, 9)} onChange={this.handleChange} />
                     </TabPane>
                     <TabPane tab="Non Consulting Services" key="3">
-                        <Table  scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
+                        <Table scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
                             dataSource={data} onChange={this.handleChange} />
                     </TabPane>
                     <TabPane tab="Consulting Services" key="4">
-                        <Table  scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
+                        <Table scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
                             dataSource={data.slice(2, 7)} onChange={this.handleChange} />
                     </TabPane>
                 </Tabs>
                 <div>
-                    <ActivityModule action={action} record={action==='create'?{}:recordObj} visible={this.state.visible} handleCancel={this.handleCancel} handleOk={this.handleOk} showModal={this.showModal} loading={this.state.loading}></ActivityModule>
+                    <ActivityModule action={action} record={action === 'create' ? {} : recordObj} visible={this.state.visible} handleCancel={this.handleCancel} handleOk={this.handleOk} showModal={this.showModal} loading={this.state.loading}></ActivityModule>
                     {/* <DeleteModal handleCancel={this.handleCancel} handleOk={this.handleOk} showModal={this.showModal} loading={this.state.loading} ></DeleteModal> */}
                 </div>
             </div>
