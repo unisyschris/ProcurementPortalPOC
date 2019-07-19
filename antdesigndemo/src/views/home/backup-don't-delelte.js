@@ -25,7 +25,7 @@ class Home extends Component {
         console.log(key)
         this.state = {
             collapsed: false,
-            selectKey: key === 'd'||key === '/' ? '1' : key,
+            selectKey: key === 'd' || key === '/' ? '1' : key,
             breadcrumb: props.location.pathname,
             drawerVisible: false
         }

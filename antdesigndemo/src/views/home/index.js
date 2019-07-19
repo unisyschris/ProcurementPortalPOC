@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import Complaints from './complaints/Complaints'
-import Home from './dashboard/index'
+import PlanHome from './procumentPlan/PlanHome.Container'
 import { Route, Switch, Link, Redirect, withRouter } from 'react-router-dom';
-import ProcumentPlan from './procumentPlan/index';
+import ProcumentPlan from './procumentPlan/pages/PlanDetail';
 import Management from './management/index';
-import PlanStatusList from './PlanStatusList';
-import Nofound from './Nofound'
+import PlanStatusList from './procumentPlan/pages/PlanStatusList.Container';
+// import Nofound from './Nofound'
 const { Header, Content, Footer } = Layout;
 
 const breadcrumbNameMap = {
@@ -67,9 +67,9 @@ class HomePage extends Component {
           </Menu>
         </Header>
         <Content className="h-content">
-          <Bread ></Bread>
+          <Bread></Bread>
           <Switch>
-            <Route exact path={`${process.env.PUBLIC_URL}/home`} component={Home}></Route>
+            <Route exact path={`${process.env.PUBLIC_URL}/home`} component={PlanHome}></Route>
             <Route path={`${process.env.PUBLIC_URL}/home/review`} component={PlanStatusList}></Route>
             <Route path={`${process.env.PUBLIC_URL}/home/approved`} component={PlanStatusList}></Route>
             <Route path={`${process.env.PUBLIC_URL}/home/saved`} component={PlanStatusList}></Route>

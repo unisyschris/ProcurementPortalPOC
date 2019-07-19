@@ -74,10 +74,11 @@ class Management extends Component {
         const { fields } = this.state;
         return (
           <div>
-            <CustomizedForm {...fields} onChange={this.handleFormChange} />
+            {/* <CustomizedForm {...fields} onChange={this.handleFormChange} />
             <Button type="primary" style={{marginLeft:'1rem'}} onClick={this.cancelEdit}>
                       Cancel
-                    </Button>
+                    </Button> */}
+                    Management
           </div>
         );
       }
