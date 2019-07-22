@@ -9,27 +9,27 @@ class Dashboard extends Component {
     }
     render() {
         return (<div>
-            <div style={{ background: '#fff', padding: 24,marginBottom: 12 }}>
+            <div style={{ background: '#fff', padding:'0.5rem 1rem',marginBottom: 12 }}>
 
-                <div style={{ padding: '5px 8px' }}>
-                    <h4 style={{ marginBottom: 16 }}>Procurement Plan Status</h4>
+                <div>
+                <span style={{ fontSize:'0.9rem',fontWeight:'500',color:'#000',marginBottom: 6, display: 'inline-block',}}>Procurement Plan Status</span>
                     <Row gutter={40}>
                         <Col span={6} >
                             <Link to={`${process.env.PUBLIC_URL}/home/saved`}>    <Card bordered={false}>
                                 <div>
-                                    <Icon type="save" style={{ fontSize: '40px',marginBottom:'20px' }}></Icon>
+                                    <Icon type="save" style={{ fontSize: '1.8rem',marginBottom:'0.6rem' }}></Icon>
                                 </div>
-                                <span> My Save Request </span>
+                                <span>Saved </span>
                             </Card>
                             </Link>
                         </Col>
                         <Col span={6}>
                             <Link to={`${process.env.PUBLIC_URL}/home/submited`}>     <Card  bordered={false}>
                                 <div>
-                                    <Icon type="highlight" style={{ fontSize: '40px',marginBottom:'20px' }}></Icon>
+                                    <Icon type="highlight" style={{ fontSize: '1.8rem',marginBottom:'0.6rem' }}></Icon>
                                 </div>
                                 <span>
-                                Submitted Request
+                                Submitted
                                 </span>
                             </Card>
                             </Link>
@@ -38,7 +38,7 @@ class Dashboard extends Component {
                             <Link to={`${process.env.PUBLIC_URL}/home/review`}>
                                 <Card  bordered={false}>
                                     <div>
-                                        <Icon type="eye" style={{ fontSize: '40px',marginBottom:'20px' }}></Icon>
+                                        <Icon type="eye" style={{ fontSize: '1.8rem',marginBottom:'0.6rem' }}></Icon>
                                     </div>
                                    <span>
                                    Review
@@ -50,9 +50,9 @@ class Dashboard extends Component {
                             <Link to={`${process.env.PUBLIC_URL}/home/approved`}>
                                 <Card  bordered={false}>
                                     <div>
-                                        <Icon type="check-circle" style={{ fontSize: '40px' ,marginBottom:'20px'}}></Icon>
+                                        <Icon type="check-circle" style={{ fontSize: '1.8rem' ,marginBottom:'0.6rem'}}></Icon>
                                     </div>
-                                    <span>  Approved</span>
+                                    <span>Approved</span>
                                 </Card> 
                                 </Link>
                         </Col>
@@ -61,11 +61,11 @@ class Dashboard extends Component {
                 </div>
 
             </div>
-            <div style={{ background: '#fff', padding:'24px 24px 40px',height:'auto' }}>
-                <h4 style={{ marginBottom: 16, display: 'inline-block' }}>Procurement Plan List</h4>
-                <Button onClick={this.handleAdd} type="primary" style={{ marginBottom: 16, display: 'inline-block', float: 'right' }}>
+            <div style={{ background: '#fff', padding:'0.5rem 1rem 40px',height:'auto' }}>
+               
+                {/* <Button onClick={this.handleAdd} type="primary" style={{ marginBottom: 6, display: 'inline-block', float: 'right' }}>
                     <Link to={`${process.env.PUBLIC_URL}/home/plan`}>Add</Link>
-                </Button>
+                </Button> */}
                 <PlanTable></PlanTable>
             </div>
         </div>)

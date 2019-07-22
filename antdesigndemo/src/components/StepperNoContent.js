@@ -5,73 +5,53 @@ const { Step } = Steps;
 
 const steps = [
   {
-    title: 'First',
-    content: 'First-content',
+    title: 'PP and PDS',
+    content: 'PP and PDS',
     index:0,
     icon:'user',
     content : (
       <div>
-        <p>Step1&nbsp;<Icon type='check' /></p>
-        <p>Step2&nbsp;<Icon type='check' /></p>
+        <p>PP&nbsp;<Icon type='check' /></p>
+        <div>PDS&nbsp;<Icon type='check' /></div>
+        
       </div>
     )
   },
   {
-    title: 'Second',
-    content: 'Second-content',
+    title: 'Review',
+    content: 'Review',
     index:1,
     icon:'file',
     content : (
       <div>
-        <p>Step1&nbsp;<Icon type='check' /></p>
-        <p>Step2&nbsp;<Icon type='close' /></p>
+        <div>Review&nbsp;<Icon type='check' /></div>
       </div>
     )
   },
   {
-    title: 'Third',
-    content: 'Third-content',
+    title: 'Create-activity',
+    content: 'Create-activity',
     index:2,
     icon:'idcard',
     content : (
       <div>
-        <p>Step1&nbsp;<Icon type='close' /></p>
-        <p>Step2&nbsp;<Icon type='close' /></p>
+        <div>Create-activity&nbsp;<Icon type='close' /></div>
       </div>
     )
   },
   {
-    title: 'Fourth',
-    content: 'Fourth-content',
-    index:2,
+    title: 'Review',
+    content: 'Review',
+    index:3,
     icon:'notification',
     content : (
       <div>
-        <p>Step1&nbsp;<Icon type='close' /></p>
-        <p>Step2&nbsp;<Icon type='close' /></p>
+        <div>Review&nbsp;<Icon type='close' /></div>
       </div>
     )
-  },
- 
-  {
-    title: 'Last',
-    content: 'Last-content',
-    index:2,
-    icon:'rocket',
-    content : (
-      <div>
-        <p>Step1&nbsp;<Icon type='close' /></p>
-        <p>Step2&nbsp;<Icon type='close' /></p>
-      </div>
-    )
-  },
+  }
 ];
-const content = (
-  <div>
-    <p>Step1<Icon type='close' /></p>
-    <p>Step2<Icon type='close' /></p>
-  </div>
-);
+
 class StepperNoContent extends Component {
     constructor(props) {
         super(props);
@@ -103,8 +83,8 @@ class StepperNoContent extends Component {
         return ( <div>
           
             <Steps current={current} status="process">
-              {steps.map(item => (
-                  <Step key={item.title} icon={<Popover content={item.content} ><Icon type={item.icon} /> </Popover>}  title={item.title} />
+              {steps.map((item,key)=> (
+                  <Step key={item.title+key} icon={<Popover content={item.content} ><Icon type={item.icon} /> </Popover>}  title={item.title} />
               ))}
             </Steps>
            
