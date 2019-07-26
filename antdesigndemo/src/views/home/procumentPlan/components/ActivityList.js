@@ -119,12 +119,14 @@ class ActivityList extends React.Component {
             visible: false,
             isShowActions: false,
             recordObj: {},
-            action: 'create'
+            action: 'create',
+            rowId:'0'
         };
     }
     callback = (key) => {
         this.setState({
-            recordObj:{}
+            recordObj:{},
+            rowId:'0'
         })
     }
     handleChange = (pagination, filters, sorter) => {
@@ -224,14 +226,14 @@ class ActivityList extends React.Component {
     handleCancel = () => {
         this.setState({ visible: false });
     };
-    showAction = (record) => {
-        console.log(record)
-        // let isShowActions =this.state.isShowActions
-        this.setState({
-            isShowActions: true,
-            recordObj: record
-        })
-    }
+    // showAction = (record) => {
+    //     console.log(record)
+    //     // let isShowActions =this.state.isShowActions
+    //     this.setState({
+    //         isShowActions: true,
+    //         recordObj: record
+    //     })
+    // }
     render() {
         let { sortedInfo, isShowActions, recordObj, action } = this.state;
         sortedInfo = sortedInfo || {};
@@ -253,7 +255,8 @@ class ActivityList extends React.Component {
                 title: 'PackageNo',
                 dataIndex: 'packageNo',
                 key: 'packageNo',
-                render: (text, row) => <a href="javascript:;" onClick={() => this.showAction(row)}>{text}</a>,
+                // onClick={() => this.showAction(row)}
+                render: (text, row) => <u style={{cursor:'pointer'}} >{text}</u>,
                 ...this.getColumnSearchProps('name'),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === 'packageNo' && sortedInfo.order
@@ -316,7 +319,6 @@ class ActivityList extends React.Component {
         return (
             <div style={{ paddingBottom: '30px' }}>
                 <span >
-                    {/* {isShowActions ? */}
                     <ButtonGroup>
                         <Button type="primary" onClick={this.showModal.bind(this, 'approve')}>
                             <Icon type="eye" />
@@ -335,34 +337,77 @@ class ActivityList extends React.Component {
                             <Icon type="plus" />
                         </Button>
                     </ButtonGroup>
-                    {/*  :<Button type="primary" onClick={this.showModal.bind(this,'create')}>
-                             Create
-                            <Icon type="plus" />
-                        </Button>
-                    } */}
+                  
                 </span>
                 <Tabs defaultActiveKey="1" onChange={this.callback}>
                     <TabPane tab="Works" key="1">
                         {/* rowSelection={rowSelection} */}
                         <Table bordered scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
-                            //  onRow={(record, index) => {
-                            //     return {
-                            //         onClick: event =>{this.showAction(record)} // click row
-                            //       };
-                            //  }}
+                             rowClassName={(record)=>{
+                                return   record.key === this.state.rowId ? 'clickRowStyl' : '';
+                               }}
+                               onRow={(record, index) => {
+                                   return {
+                                       onClick: () => {
+                                           this.setState({
+                                             rowId: record.key,
+                                             recordObj: record
+                                           });
+                                         },
+                                   };
+                               }}
                             dataSource={data.slice(0, 4)} onChange={this.handleChange} />
                     </TabPane>
                     <TabPane tab="Goods" key="2">
                         <Table scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
                             bordered={false}
+                            rowClassName={(record)=>{
+                                return   record.key === this.state.rowId ? 'clickRowStyl' : '';
+                               }}
+                               onRow={(record, index) => {
+                                   return {
+                                       onClick: () => {
+                                           this.setState({
+                                             rowId: record.key,
+                                             recordObj: record
+                                           });
+                                         },
+                                   };
+                               }}
                             dataSource={data.slice(3, 9)} onChange={this.handleChange} />
                     </TabPane>
                     <TabPane tab="Non Consulting Services" key="3">
                         <Table scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
-                            dataSource={data} onChange={this.handleChange} />
+                          rowClassName={(record)=>{
+                            return   record.key === this.state.rowId ? 'clickRowStyl' : '';
+                           }}
+                           onRow={(record, index) => {
+                               return {
+                                   onClick: () => {
+                                       this.setState({
+                                         rowId: record.key,
+                                         recordObj: record
+                                       });
+                                     },
+                               };
+                           }}
+                         dataSource={data} onChange={this.handleChange} />
                     </TabPane>
                     <TabPane tab="Consulting Services" key="4">
                         <Table scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
+                             rowClassName={(record)=>{
+                                return   record.key === this.state.rowId ? 'clickRowStyl' : '';
+                               }}
+                               onRow={(record, index) => {
+                                   return {
+                                       onClick: () => {
+                                           this.setState({
+                                             rowId: record.key,
+                                             recordObj: record
+                                           });
+                                         },
+                                   };
+                               }}
                             dataSource={data.slice(2, 7)} onChange={this.handleChange} />
                     </TabPane>
                 </Tabs>
