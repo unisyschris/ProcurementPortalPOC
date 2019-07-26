@@ -9,13 +9,13 @@ const ButtonGroup = Button.Group;
 const data = [
     {
         key: '1',
-        packageNo: 'John Brown',
+        packageNo: 'NSUP-OSP-1',
         quantity: 32,
-        unit: 'New York',
-        description: 'My name is John Brown',
-        type: 'YES',
+        unit: 'IBRD / 86360',
+        description: 'Oversight Service Provider(OSP) Package 1 (Jawa Tengah-1)',
+        type: 'Prior',
         method: 'NCB',
-        value: 6
+        value: '5,010,468.00'
     },
     {
         key: '2',
@@ -51,8 +51,8 @@ const data = [
         key: '5',
         packageNo: 'John Brown',
         quantity: 12,
-        unit: 'New York No. 1 Lake Park',
-        description: 'My name is John Brown, I am 12 years old, living in New York No. 1 Lake Park.',
+        unit: 'Lake Park',
+        description: 'My name is John Brown,living in New York No. 1 Lake Park.',
         type: 'YES',
         method: 'NCB',
         value: 2
@@ -61,8 +61,8 @@ const data = [
         key: '6',
         packageNo: 'Joe Black',
         quantity: 32,
-        unit: 'London No. 1 Lake Park',
-        description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
+        unit: 'No. 1',
+        description: 'My name is Joe Black, living in Sidney No. 1 Lake Park.',
         type: 'YES',
         method: 'NCB',
         value: 7
@@ -71,8 +71,8 @@ const data = [
         key: '7',
         packageNo: 'Jim Green',
         quantity: 43,
-        unit: 'Sidney No. 1 Lake Park',
-        description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
+        unit: 'Sidney',
+        description: 'I am 42 years old, living in London No. 1 Lake Park.',
         type: 'YES',
         method: 'NCB',
         value: 1
@@ -81,8 +81,8 @@ const data = [
         key: '8',
         packageNo: 'Jim Red',
         quantity: 56,
-        unit: 'London No. 2 Lake Park',
-        description: 'My name is Jim Red, I am 32 years old, living in Sidney No. 1 Lake Park.',
+        unit: 'Lake Park',
+        description: 'I am 32 years old, living in Sidney No. 1 Lake Park.',
         type: 'YES',
         method: 'NCB',
         value: 5
@@ -91,8 +91,8 @@ const data = [
         key: '9',
         packageNo: 'Green',
         quantity: 43,
-        unit: 'Sidney No. 1 Lake Park',
-        description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
+        unit: 'Lake Park',
+        description: 'I am 42 years old, living in London No. 1 Lake Park.',
         type: 'YES',
         method: 'NCB',
         value: 3
@@ -101,8 +101,8 @@ const data = [
         key: '10',
         packageNo: 'Jim Red',
         quantity: 56,
-        unit: 'London No. 2 Lake Park',
-        description: 'My name is Jim Red, I am 32 years old, living in Sidney No. 1 Lake Park.',
+        unit: 'London',
+        description: 'I am 32 years old, living in Sidney No. 1 Lake Park.',
         type: 'NO',
         method: 'NCB',
         value: 2
@@ -197,7 +197,7 @@ class ActivityList extends React.Component {
         if (!recordObj.packageNo) {
             console.log(1)
             if (action !== 'create') {
-                console.log(2)
+               
                 message.warning('Please select one line first')
             } else {
                 console.log(3)
@@ -216,6 +216,13 @@ class ActivityList extends React.Component {
         }
 
     };
+    showModalNew=(row)=>{
+        this.setState({
+            recordObj:row,
+            visible: true,
+            action: 'approve'
+        });
+    }
     handleOk = () => {
         this.setState({ loading: true });
         setTimeout(() => {
@@ -224,7 +231,8 @@ class ActivityList extends React.Component {
     };
 
     handleCancel = () => {
-        this.setState({ visible: false });
+        this.setState({ visible: false,
+             });
     };
     // showAction = (record) => {
     //     console.log(record)
@@ -255,8 +263,9 @@ class ActivityList extends React.Component {
                 title: 'PackageNo',
                 dataIndex: 'packageNo',
                 key: 'packageNo',
+                width: '5%',
                 // onClick={() => this.showAction(row)}
-                render: (text, row) => <u style={{cursor:'pointer'}} >{text}</u>,
+                render: (text, row) => <u onClick={this.showModalNew.bind(this,row)} style={{cursor:'pointer'}} >{text}</u>,
                 ...this.getColumnSearchProps('name'),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === 'packageNo' && sortedInfo.order
@@ -265,6 +274,7 @@ class ActivityList extends React.Component {
                 title: 'General Description',
                 dataIndex: 'description',
                 key: 'description',
+                // width: '20%',
                 ...this.getColumnSearchProps('description'),
                 sorter: (a, b) => a.age - b.age,
                 sortOrder: sortedInfo.columnKey === 'description' && sortedInfo.order,
@@ -273,7 +283,7 @@ class ActivityList extends React.Component {
                 title: 'Unit',
                 dataIndex: 'unit',
                 key: 'unit',
-
+                width: '12%',
                 ...this.getColumnSearchProps('unit'),
                 sorter: (a, b) => a.address.length - b.address.length,
                 sortOrder: sortedInfo.columnKey === 'unit' && sortedInfo.order,
@@ -282,7 +292,7 @@ class ActivityList extends React.Component {
                 title: 'Quantity',
                 dataIndex: 'quantity',
                 key: 'quantity',
-
+                width: '8%',
                 ...this.getColumnSearchProps('quantity'),
                 sorter: (a, b) => a.age - b.age,
                 sortOrder: sortedInfo.columnKey === 'quantity' && sortedInfo.order,
@@ -291,7 +301,7 @@ class ActivityList extends React.Component {
                 title: 'Review Type',
                 dataIndex: 'type',
                 key: 'type',
-
+                width: '8%',
                 ...this.getColumnSearchProps('type'),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === 'type' && sortedInfo.order,
@@ -300,7 +310,7 @@ class ActivityList extends React.Component {
                 title: 'Method',
                 dataIndex: 'method',
                 key: 'method',
-
+                width: '6%',
                 ...this.getColumnSearchProps('method'),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === 'method' && sortedInfo.order,
@@ -320,10 +330,10 @@ class ActivityList extends React.Component {
             <div style={{ paddingBottom: '30px' }}>
                 <span >
                     <ButtonGroup>
-                        <Button type="primary" onClick={this.showModal.bind(this, 'approve')}>
+                        {/* <Button type="primary" onClick={this.showModal.bind(this, 'approve')}>
                             <Icon type="eye" />
                             View
-                            </Button>
+                            </Button> */}
                         <Button type="primary" onClick={this.showModal.bind(this, 'edit')}>
                             Edit
                                 <Icon type="edit" />
@@ -341,8 +351,8 @@ class ActivityList extends React.Component {
                 </span>
                 <Tabs defaultActiveKey="1" onChange={this.callback}>
                     <TabPane tab="Works" key="1">
-                        {/* rowSelection={rowSelection} */}
-                        <Table bordered scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
+                        {/* rowSelection={rowSelection} scroll={{ x: 1800 }} */}
+                        <Table bordered  pagination={{ pageSize: 5 }} columns={columns} size='small'
                              rowClassName={(record)=>{
                                 return   record.key === this.state.rowId ? 'clickRowStyl' : '';
                                }}
@@ -359,7 +369,7 @@ class ActivityList extends React.Component {
                             dataSource={data.slice(0, 4)} onChange={this.handleChange} />
                     </TabPane>
                     <TabPane tab="Goods" key="2">
-                        <Table scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
+                        <Table  pagination={{ pageSize: 5 }} columns={columns} size='small'
                             bordered={false}
                             rowClassName={(record)=>{
                                 return   record.key === this.state.rowId ? 'clickRowStyl' : '';
@@ -377,7 +387,7 @@ class ActivityList extends React.Component {
                             dataSource={data.slice(3, 9)} onChange={this.handleChange} />
                     </TabPane>
                     <TabPane tab="Non Consulting Services" key="3">
-                        <Table scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
+                        <Table  pagination={{ pageSize: 5 }} columns={columns} size='small'
                           rowClassName={(record)=>{
                             return   record.key === this.state.rowId ? 'clickRowStyl' : '';
                            }}
@@ -394,7 +404,7 @@ class ActivityList extends React.Component {
                          dataSource={data} onChange={this.handleChange} />
                     </TabPane>
                     <TabPane tab="Consulting Services" key="4">
-                        <Table scroll={{ x: 1800 }} pagination={{ pageSize: 5 }} columns={columns} size='small'
+                        <Table  pagination={{ pageSize: 5 }} columns={columns} size='small'
                              rowClassName={(record)=>{
                                 return   record.key === this.state.rowId ? 'clickRowStyl' : '';
                                }}

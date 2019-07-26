@@ -11,7 +11,8 @@ class uploadCustom extends Component {
             fileObj: {
                 filename: '',
                 description: '',
-                title: ''
+                title: '',
+                comments:''
             },
             uploading: false,
             fileList: []
@@ -39,21 +40,33 @@ class uploadCustom extends Component {
     //     }
 
     // };
+    componentWillUnmount = () => {
+        this.setState = (state,callback)=>{
+          return;
+        };
+    }
     static getDerivedStateFromProps(nextProps, prevState) {
         console.log(nextProps, prevState)
         // console.log(recordObj.key === prevState.ppObj.key)
-        if (nextProps.fileList[0] && nextProps.fileList !== prevState.fileList) {
-            console.log(nextProps.fileList === prevState.fileList)
+        if (nextProps.fileList[nextProps.fileList.length-1] && nextProps.fileList !== prevState.fileList) {
+            console.log(nextProps.fileList !== prevState.fileList)
             return {
-                fileObj: { ...prevState.fileObj, fileName: nextProps.fileList[0].name },
-                fileList: nextProps.fileList
+                fileObj: { 
+                description: '',
+                title: '',
+                comments:'', 
+                filename: nextProps.fileList[nextProps.fileList.length-1].name
+             },
+                fileList: nextProps.fileList,
+                uploading:false
             };
         }
         if (nextProps.record && nextProps.record !== prevState.fileObj) {
             console.log(nextProps.record)
             return {
                 fileObj: { ...nextProps.record },
-                action: nextProps.action
+                action: nextProps.action,
+                uploading:false
             };
         }
         return null;
@@ -61,6 +74,13 @@ class uploadCustom extends Component {
     handleUpload = e => {
         e.preventDefault();
         let { action } = this.props
+
+        this.setState({
+            uploading: true,
+        },()=>{
+            this.props.handleCancel()
+        });
+        
         if (action) {
             console.log('other operation')
         } else {
@@ -107,36 +127,41 @@ class uploadCustom extends Component {
         };
     }
     handleCancel = () => {
-        let { fileName } = this.state.fileObj
-        this.props.form.setFieldsValue({
-            title: '',
-            description: '',
-            fileName: fileName
-        })
+        console.log('cancel')
         this.props.handleCancel()
+        // let { filename } = this.state.fileObj
+        // this.props.form.setFieldsValue({
+        //     title: '',
+        //     description: '',
+        //     filename: '',
+        //     comments:''
+        // },()=>{
+            
+        // })
+       
     }
-    fileNameChange = (e) => {
-        console.log(e.target, e.target.value)
-        let val = e.target.value
-        this.setState({
-            fileName: val
-        }, () => {
-            this.props.changeFileNameP(val)
-        })
-    }
+    // fileNameChange = (e) => {
+    //     console.log(e.target, e.target.value)
+    //     let val = e.target.value
+    //     this.setState({
+    //         fileName: val
+    //     }, () => {
+    //         this.props.changeFileNameP(val)
+    //     })
+    // }
     render() {
         const { getFieldDecorator } = this.props.form;
-        let { visible, handleCancel, action } = this.props;
+        let { visible, action } = this.props;
         let { uploading, fileObj } = this.state;
-        let { filename, title, description } = fileObj;
-        console.log(action)
+        let { filename, title, description,comments } = fileObj;
+        console.log(this.state.fileObj)
         return (<div>
-
             <Modal
                 title="Custom Upload"
                 visible={visible}
-                onCancel={handleCancel}
+                onCancel={this.handleCancel}
                 footer={null}
+                width={800}
             // TODO: Custom upload Modal 
             >
                 <Form labelCol={{ span: 5 }} wrapperCol={{ span: 12 }} onSubmit={this.handleUpload}>
@@ -158,19 +183,22 @@ class uploadCustom extends Component {
                             rules: [{ required: true, message: 'Please input your description!' }],
                         })(<Input autoComplete="off" />)}
                     </Form.Item>
+                    <Form.Item label="Comments">
+                        {getFieldDecorator('comments', {
+                            initialValue: comments,
+                            rules: [{ required: true, message: 'Please input your comments!' }],
+                        })(<Input autoComplete="off" />)}
+                    </Form.Item>
                     <Form.Item wrapperCol={{ span: 12, offset: 5 }}>
                         {
                             action ?
-                                <Button key="action" style={{ marginLeft: '1rem' }} htmlType="submit">
+                                <Button type="primary" key="action" style={{ marginLeft: '1rem' }} loading={uploading} htmlType="submit">
                                     Save
                           </Button> :
                                 <Button type="primary" htmlType="submit" loading={uploading}>
                                     {uploading ? 'Uploading' : 'Start Upload'}
                                 </Button>
                         }
-                        {/* <Button type="primary" htmlType="submit" loading={uploading}>
-                            {uploading ? 'Uploading' : 'Start Upload'}
-                        </Button> */}
                         <Button key="back" style={{ marginLeft: '1rem' }} onClick={this.handleCancel}>
                             Cancel
                         </Button>

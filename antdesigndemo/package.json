@@ -28,7 +28,7 @@
     "regenerator-runtime": "^0.13.2"
   },
   "scripts": {
-    "start": "rescripts start",
+    "start": "react-scripts start",
     "build": "rescripts build",
     "test": "rescripts test",
     "eject": "react-scripts eject"

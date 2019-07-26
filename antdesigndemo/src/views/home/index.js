@@ -6,7 +6,7 @@ import { Route, Switch, Link, Redirect, withRouter } from 'react-router-dom';
 import ProcumentPlan from './procumentPlan/pages/PlanDetail';
 import Management from './management/index';
 import PlanStatusList from './procumentPlan/pages/PlanStatusList.Container';
-// import Nofound from './Nofound'
+import Nofound from './Nofound'
 const { Header, Content, Footer } = Layout;
 
 const breadcrumbNameMap = {
@@ -15,7 +15,7 @@ const breadcrumbNameMap = {
   '/home/approved': 'Approve Request',
   '/home/submited': 'Submited Request',
   '/home/saved': 'Save Request',
-  '/home/plan': 'Procurement Plan List',
+  '/home/plan': 'Procurement Plan Detail',
   '/management': 'Contract Management',
   '/complaints': 'Complaints Monitoring',
 };
@@ -45,16 +45,17 @@ class HomePage extends Component {
     console.log(props.location.pathname)
     let key = props.location.pathname
     this.state = {
-      selectKey:key.includes('complaints')? '3':key.includes('management')?'2':'1'
+      selectKey: key.includes('complaints') ? '3' : key.includes('management') ? '2' : '1',
     }
   }
   render() {
-    let {selectKey} = this.state
+    let { selectKey } = this.state
+    const {isNoFound} = this.props
     return (<div id="components-layout-demo-fixed">
+
       <Layout>
-        <Header>
-          {/* style={{fontSize:'30px',fontWeight:'600',color:'#fff',display:'inline-block',width:'3px'}} */}
-          <span  className="logo" style={{fontSize:'30px',fontWeight:'600',color:'#fff',display:'inline-block',lineHeight:'48px'}}>Demo</span>
+        <Header style={{ display: isNoFound ? 'none' : 'block' }}>
+          <span className="logo" style={{ fontSize: '30px', fontWeight: '600', color: '#fff', display: 'inline-block', lineHeight: '48px' }}>Demo</span>
           <Menu
             theme="dark"
             mode="horizontal"
@@ -67,7 +68,7 @@ class HomePage extends Component {
           </Menu>
         </Header>
         <Content className="h-content">
-          <Bread></Bread>
+          <Bread style={{ display: isNoFound ? 'none' : 'block' }}></Bread>
           <Switch>
             <Route exact path={`${process.env.PUBLIC_URL}/home`} component={PlanHome}></Route>
             <Route path={`${process.env.PUBLIC_URL}/home/review`} component={PlanStatusList}></Route>
@@ -78,10 +79,11 @@ class HomePage extends Component {
             <Route path={`${process.env.PUBLIC_URL}/management`} component={Management}></Route>
             <Route path={`${process.env.PUBLIC_URL}/complaints`} component={Complaints}></Route>
             <Redirect exact path={`${process.env.PUBLIC_URL}/`} to={`${process.env.PUBLIC_URL}/home`} ></Redirect>
-            {/* <Route component={Nofound}></Route> */}
+            <Route path={`${process.env.PUBLIC_URL}/404`} component={Nofound}></Route>
+            <Redirect from='*' to='/404' />
           </Switch>
         </Content>
-        <Footer style={{ textAlign: 'center', position: 'fixed', bottom: '0', width: '100vw' }}>Ant Design Demo ©2019 Created by Xiaohui</Footer>
+        <Footer style={{ textAlign: 'center', position: 'fixed', bottom: '0', width: '100vw' ,display: isNoFound ? 'none' : 'block' }}>Ant Design Demo ©2019 Created by Xiaohui</Footer>
       </Layout>
     </div>)
   }

@@ -60,12 +60,12 @@ class DocumentList extends Component {
         console.log(record)
 
     }
-    setRecord = (record) => {
-        console.log(record)
-        this.setState({
-            recordObj: record
-        })
-    }
+    // setRecord = (record) => {
+    //     console.log(record)
+    //     this.setState({
+    //         recordObj: record
+    //     })
+    // }
     showModal = (action, e) => {
         let { recordObj } = this.state
         console.log(recordObj.title, action)

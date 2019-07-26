@@ -31,6 +31,7 @@ class PlanHome extends Component {
     }
     toList = (action) => {
         let { recordObj } = this.state
+        console.log(recordObj)
         this.setState({
             action: action
         })
@@ -44,6 +45,9 @@ class PlanHome extends Component {
             }
         }
     }
+    toListNew =(row)=>{
+        history.push({ pathname: `${process.env.PUBLIC_URL}/home/plan`, state: { recordObj: row, action:'approve' } })
+    }
     render() {
         let {dataSource,loading} = this.state
         const columns = [
@@ -51,7 +55,7 @@ class PlanHome extends Component {
                 title: 'Title',
                 dataIndex: 'title',
                 key: 'title',
-                render: (text, row) => <u style={{ cursor: 'pointer' }} >{text}</u>,
+                render: (text, row) => <u onClick={this.toListNew.bind(this, row)} style={{ cursor: 'pointer' }} >{text}</u>,
             },
             {
                 title: 'Description',
@@ -66,7 +70,6 @@ class PlanHome extends Component {
         ];
         return (<div>
             <div style={{ background: '#fff', padding: '0.5rem 1rem', marginBottom: 12 }}>
-
                 <div>
                     <span style={{ fontSize: '0.9rem', fontWeight: '500', color: '#000', marginBottom: 6, display: 'inline-block', }}>Procurement Plan Status</span>
                     <Row gutter={40}>
@@ -121,10 +124,10 @@ class PlanHome extends Component {
                 <div>
                     <span style={{ fontSize: '0.9rem', fontWeight: '500', color: '#000' }}>Procurement Plan List</span>
                     <ButtonGroup style={{ margin: '0 2rem 6px', float: 'right' }}>
-                        <Button type="primary" onClick={this.toList.bind(this, 'approve')}>
+                        {/* <Button type="primary" onClick={this.toList.bind(this, 'approve')}>
                             <Icon type="eye" />
                             View
-                            </Button>
+                            </Button> */}
                         <Button type="primary" onClick={this.toList.bind(this, 'edit')}>
                             Edit
                                 <Icon type="edit" />
