@@ -2,6 +2,7 @@ import axios from 'axios';
 export const homeActions  = {
     getData
 }
+// test
 function getData(){
 
     return dispatch=>{

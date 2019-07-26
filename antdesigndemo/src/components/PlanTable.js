@@ -50,14 +50,13 @@ const data = [
 class PlanTable extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
-    }
-    toProcumentPlan = (record) => {
-        console.log(record)
-
+        this.state = {
+            rowId:'0'
+        }
     }
     toList = (action) => {
         let { recordObj } = this.state
+        console.log(recordObj)
         this.setState({
             action: action
         })
@@ -72,19 +71,16 @@ class PlanTable extends Component {
         }
 
     }
-    setRecord = (record) => {
-        console.log(record)
-        this.setState({
-            recordObj: record
-        })
-    }
+    // toList2=()=>{
+    //     console.log('ha')
+    // }
     render() {
         const columns = [
             {
                 title: 'Title',
                 dataIndex: 'title',
                 key: 'title',
-                render: (text, row) => <a href="javascript:;" onClick={() => this.setRecord(row)}>{text}</a>,
+                render: (text, row) => <span  style={{cursor:'pointer'}} >{text}</span>,
             },
             {
                 title: 'Description',
@@ -95,16 +91,7 @@ class PlanTable extends Component {
                 title: 'Owner',
                 dataIndex: 'owner',
                 key: 'owner',
-            },
-            // {
-            //     title: 'Action',
-            //     key: 'action',
-            //     render: (text, record) => (
-            //         <span>
-            //             <Button type="primary" onClick={this.toProcumentPlan.bind(this,record)}>View</Button>
-            //         </span>
-            //     ),
-            // },
+            }
         ];
         return (<div>
             <div>
@@ -129,11 +116,19 @@ class PlanTable extends Component {
                 </ButtonGroup>
             </div>
             <Table size='small'
-                // onRow={(record, index) => {
-                //     return {
-                //         onClick: event => { history.push({ pathname: `${process.env.PUBLIC_URL}/home/plan`, state: record }) }, // click row
-                //     };
-                // }}
+                rowClassName={(record)=>{
+                 return   record.key === this.state.rowId ? 'clickRowStyl' : '';
+                }}
+                onRow={(record, index) => {
+                    return {
+                        onClick: () => {
+                            this.setState({
+                              rowId: record.key,
+                              recordObj: record
+                            });
+                          },
+                    };
+                }}
                 bordered={true}
                 style={{ background: '#fff' }} columns={columns} pagination={{ pageSize: 5 }} dataSource={data} />
         </div>);

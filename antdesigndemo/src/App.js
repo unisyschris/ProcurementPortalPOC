@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch,Redirect } from 'react-router-dom';
 // import Home from './views/home/index';
-import HomePage from './views/home/index';
+import HomePage from './views/home/index.Container';
 import { history } from './utils/history';
-import Login from './views/login/Login';
+import Login from './views/login/Login.Container';
 import { setHtmlFontSize, resetHtmlFontSize } from './utils/setHtmlFontSize';
-// import Nofound from './views/home/Nofound';
+
 class App extends Component {
   constructor(props) {
     super(props);

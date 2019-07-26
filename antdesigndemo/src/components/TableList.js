@@ -160,15 +160,7 @@ class TableList extends React.Component {
             if (visible) {
                 setTimeout(() => this.searchInput.select());
             }
-        },
-        // render: text => (
-        //   <Highlighter
-        //     highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-        //     searchWords={[this.state.searchText]}
-        //     autoEscape
-        //     textToHighlight={text.toString()}
-        //   />
-        // ),
+        }
     });
     deleteRecord = (record) => {
         console.log(record)
@@ -200,7 +192,7 @@ class TableList extends React.Component {
     
       handleCancel = () => {
         this.setState({ visible: false });
-      };
+      }
     render() {
         let { sortedInfo } = this.state;
         sortedInfo = sortedInfo || {};
@@ -280,7 +272,20 @@ class TableList extends React.Component {
         // onChange:this.onChange  showQuickJumper:true,
         return (
             <div>
-                <Table  scroll={{ x: 1800 }} size='small' bordered pagination={{ pageSize:8 }} columns={columns} 
+                <Table 
+                 rowClassName={(record)=>{
+                    return   record.key === this.state.rowId ? 'clickRowStyl' : '';
+                   }}
+                   onRow={(record, index) => {
+                       return {
+                           onClick: () => {
+                               this.setState({
+                                 rowId: record.key,
+                               });
+                             },
+                       };
+                   }}
+                scroll={{ x: 1800 }} size='small' bordered pagination={{ pageSize:8 }} columns={columns} 
                     expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}
                     dataSource={data} onChange={this.handleChange} />
                 <div>

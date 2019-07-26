@@ -4,50 +4,7 @@ import UploadCustom from '../../../../components/files/UploadCustom';
 // import DocumentList from '../../../../components/DocumentList';
 // import axios from 'axios';
 const ButtonGroup = Button.Group;
-const data = [
-  {
-    key: '1',
-    title: 'John Brown',
-    filename: 'Jim',
-    description: 'New York No. 1 Lake Park',
-    comments: 'Nice developer',
-  },
-  {
-    key: '2',
-    title: 'Jim Green',
-    filename: 'Mike',
-    description: 'London No. 1 Lake Park',
-    comments: 'Champion',
-  },
-  {
-    key: '3',
-    title: 'Joe Black',
-    filename: 'Joe',
-    description: 'Sidney No. 1 Lake Park',
-    comments: 'Cool teacher',
-  },
-  {
-    key: '4',
-    title: 'John Brown',
-    filename: 'Jim',
-    description: 'New York No. 1 Lake Park',
-    comments: 'Nice developer',
-  },
-  {
-    key: '5',
-    title: 'Jim Green',
-    filename: 'Mike',
-    description: 'London No. 1 Lake Park',
-    comments: 'Champion',
-  },
-  {
-    key: '6',
-    title: 'Joe Black',
-    filename: 'Joe',
-    description: 'Sidney No. 1 Lake Park',
-    comments: 'Cool teacher',
-  },
-];
+
 
 const EditableContext = React.createContext();
 
@@ -148,7 +105,7 @@ class Documents extends Component {
         dataIndex: 'title',
         key: 'title',
         // onClick={() => this.setRecord(row)}
-        render: (text, row) => <u  style={{cursor:'pointer'}} >{text}</u>,
+        render: (text, row) => <span  style={{cursor:'pointer'}} >{text}</span>,
       },
       {
         title: 'Description',
@@ -176,43 +133,43 @@ class Documents extends Component {
       dataSource: [
         {
           key: '1',
-          title: 'John Brown',
-          filename: 'Jim',
-          description: 'New York No. 1 Lake Park',
-          comments: 'Nice developer',
+          title: 'National Slum Upgrading Program',
+          filename: 'Procument',
+          description: 'Directorate General of Human Settlements, Ministry Public Works and Housing',
+          comments: 'Priview review',
         },
         {
           key: '2',
           title: 'Jim Green',
-          filename: 'Mike',
+          filename: 'Plan',
           description: 'London No. 1 Lake Park',
           comments: 'Champion',
         },
         {
           key: '3',
           title: 'Joe Black',
-          filename: 'Joe',
+          filename: 'Plan Documents',
           description: 'Sidney No. 1 Lake Park',
           comments: 'Cool teacher',
         },
         {
           key: '4',
           title: 'John Brown',
-          filename: 'Jim',
+          filename: 'Procurement',
           description: 'New York No. 1 Lake Park',
           comments: 'Nice developer',
         },
         {
           key: '5',
           title: 'Jim Green',
-          filename: 'Mike',
+          filename: 'Test',
           description: 'London No. 1 Lake Park',
           comments: 'Champion',
         },
         {
           key: '6',
           title: 'Joe Black',
-          filename: 'Joe',
+          filename: 'Test Documents',
           description: 'Sidney No. 1 Lake Park',
           comments: 'Cool teacher',
         },
@@ -259,11 +216,13 @@ class Documents extends Component {
   showUploadModal = () => {
     
       this.setState({
+        action:'upload',
         visible: true,
       });
-    
-
   };
+  downLoadFile=()=>{
+
+  }
 
   render() {
     const components = {
@@ -328,8 +287,9 @@ class Documents extends Component {
               Delete
           <Icon type="delete" />
             </Button>
-            <Button type="primary" onClick={this.showModal.bind(this, 'download')}>
-              Download
+            <Button type="primary" onClick={this.downLoadFile.bind(this, 'download')}>
+           {/* //TODO: download File  is need a interface */}
+              <a style={{color:'#fff',marginRight:'0.4rem'}} href={`${process.env.PUBLIC_URL}/`} download="testdownload.doc">Download</a>
           <Icon type="download" />
             </Button>
           </ButtonGroup>
