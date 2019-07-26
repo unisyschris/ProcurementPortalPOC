@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Router, Route, Switch,Redirect } from 'react-router-dom';
 // import Home from './views/home/index';
 import HomePage from './views/home/index';
@@ -27,21 +26,11 @@ class App extends Component {
         <Switch>
          <Route path={`${process.env.PUBLIC_URL}/login`} component={Login}></Route>
           <Route  path={`${process.env.PUBLIC_URL}/`} component={HomePage}></Route>
-          {/* <Route  component={Nofound}></Route> */}
         </Switch>
       </Router>
     </div>);
   }
 }
-const mapStateToProps = (state) => {
-  return {
 
-  }
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
 
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

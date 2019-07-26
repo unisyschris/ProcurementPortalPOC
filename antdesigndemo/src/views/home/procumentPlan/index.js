@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Tabs, Divider,message} from 'antd';
+import { Tabs, Divider, message } from 'antd';
 import StepperNoContent from '../../../components/StepperNoContent';
 import ActivityList from './components/ActivityList';
 import PP from './components/PP';
@@ -10,18 +10,26 @@ class ProcPlan extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
       lable: 'Submit',
-      uploadUrl: '/',
-      // https://www.mocky.io/v2/5cc8019d300000980a055e76,
       ppObj: {
+        key: '0',
         title: '',
         description: '',
         owner: ''
-    }
+      },
+      action: 'create'
     }
   }
   componentDidMount() {
+    let { location } = this.props
+    console.log(location)
+    if (location.state) {
+      console.log( { ...location.state.recordObj })
+      this.setState({
+        ppObj: { ...location.state.recordObj },
+        action: location.state.action
+      })
+    }
     let role = localStorage.getItem('role')
     if (role === 'admin') {
       this.setState({
@@ -36,19 +44,19 @@ class ProcPlan extends Component {
     }
 
   }
-  
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.location.state.recordObj&&nextProps.location.state.recordObj.title !== prevState.ppObj.title) {
-      console.log(nextProps, prevState)
-      return {
-        ppObj: nextProps.location.state.recordObj,
-      };
-    }
-    return null;
-  }
- 
-  
- 
+
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   let {recordObj} = nextProps.location.state
+  //   console.log(recordObj.key === prevState.ppObj.key)
+  //   if (recordObj && recordObj.key !== prevState.ppObj.key) {
+  //     console.log(recordObj.key === prevState.ppObj.key)
+  //     return {
+  //       ppObj: {...recordObj},
+  //     };
+  //   }
+  //   return null;
+  // }
+
   handleSubmitFile = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -58,35 +66,9 @@ class ProcPlan extends Component {
     });
   };
 
- 
+
   render() {
-    
-    const uploadProps = {
-      name: 'file',
-      action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-      headers: {
-        authorization: 'authorization-text',
-      },
-      beforeUpload: this.beforeUpload,
-      onChange(info) {
-        console.log(info)
-        if (info.file.status !== 'uploading') {
-          console.log(info.file, info.fileList);
-        }
-        if (info.file.status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
-        }
-      }
-    }
-    let { uploadUrl } = this.state
-    let { location } = this.props
-    const { loading, isDisabled } = this.state;
-    const formItemLayout = {
-      labelCol: { span: 6 },
-      wrapperCol: { span: 14 },
-    };
+    let { ppObj, action } = this.state
     return (<div style={{ backgroundColor: '#fff', padding: '0.4rem 1rem 2.4rem', height: 'auto' }}>
       <div style={{ width: '80%', margin: '12px auto' }}>
         <StepperNoContent></StepperNoContent>
@@ -94,10 +76,10 @@ class ProcPlan extends Component {
       <Divider></Divider>
       <Tabs tabPosition='left' style={{ position: 'relative', width: '100%' }}>
         <TabPane tab="PP" key="1">
-            <PP ppObj={location.state.recordObj||{}} action={location.state.action||''}></PP>
+          <PP ppObj={ppObj} action={action}></PP>
         </TabPane>
         <TabPane tab="PDS" key="2">
-          <PDS></PDS>
+          <PDS action={action}></PDS>
         </TabPane>
         <TabPane tab="Activities" key="3">
           <ActivityList></ActivityList>

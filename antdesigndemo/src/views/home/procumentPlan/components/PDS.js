@@ -14,6 +14,7 @@ class PDS extends Component {
         });
       };
     render() { 
+        let { action } = this.props
         const { getFieldDecorator } = this.props.form;
         return ( <div>
              <Form className="pds-part" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }} onSubmit={this.handleSubmitPDS}>
@@ -49,9 +50,13 @@ class PDS extends Component {
             </Form.Item>
             <Form.Item wrapperCol={{ span: 12, offset: 5 }} >
               <Button type="primary" htmlType="submit" >
-                {/* {location.state ? 'Edit' : 'Create'} */}
-                EDIT
+              {action==='create' ? 'Create' : action==='edit'?'Save':'View'}
               </Button>
+              {action==='edit' &&
+                    <Button type="primary" style={{marginLeft:'1rem'}} onClick={this.cancelEdit}>
+                      Cancel
+                    </Button>
+              }
             </Form.Item>
           </Form>
         </div> );

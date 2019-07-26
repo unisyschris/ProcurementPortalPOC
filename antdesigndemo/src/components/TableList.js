@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Input, Button, Icon, Tag } from 'antd';
 // import Highlighter from 'react-highlight-words';
-import DeleteModal from '../components/DeleteModal'
+import DeleteModal from './modals/DeleteModal'
 const data = [
     {
         key: '1',
@@ -245,27 +245,27 @@ class TableList extends React.Component {
                 dataIndex: 'type',
                 key: 'type',
               
-                ...this.getColumnSearchProps('name'),
-                sorter: (a, b) => a.name.length - b.name.length,
-                sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
+                ...this.getColumnSearchProps('type'),
+                sorter: (a, b) => a.type.length - b.type.length,
+                sortOrder: sortedInfo.columnKey === 'type' && sortedInfo.order,
             },
             {
                 title: 'Method',
                 dataIndex: 'method',
                 key: 'method',
                 
-                ...this.getColumnSearchProps('name'),
-                sorter: (a, b) => a.name.length - b.name.length,
-                sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
+                ...this.getColumnSearchProps('method'),
+                sorter: (a, b) => a.method.length - b.method.length,
+                sortOrder: sortedInfo.columnKey === 'method' && sortedInfo.order,
             },
             {
                 title: 'Estimated Value',
                 dataIndex: 'value',
                 key: 'value',
                 
-                ...this.getColumnSearchProps('name'),
-                sorter: (a, b) => a.name.length - b.name.length,
-                sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
+                ...this.getColumnSearchProps('value'),
+                sorter: (a, b) => a.value.length - b.value.length,
+                sortOrder: sortedInfo.columnKey === 'value' && sortedInfo.order,
             },
             // {
             //     title: 'Action',

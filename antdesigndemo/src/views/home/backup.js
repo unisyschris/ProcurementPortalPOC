@@ -20,6 +20,7 @@ const { Header, Sider, Content } = Layout;
 class Home extends Component {
     constructor(props) {
         super(props);
+        console.log(props.location.pathname)
         let key = props.location.pathname.charAt(props.location.pathname.length - 1)
         console.log(key)
         this.state = {
